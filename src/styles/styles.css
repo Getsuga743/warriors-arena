@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,700;1,300&display=swap');
+body {
+    background-color: black;
+    font-family: 'Ubuntu', sans-serif;
+    color: white;
+    width: auto;
+    height: auto;
+}
+
+#app {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 800px;
+}
+
+.container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    width: 800px;
+    height: 600px;
+    border: 1px solid white;
+    border-radius: 13px;
+    outline: 2px solid white;
+    outline-offset: 5px;
+}
+
+.container__TextOutput {
+    display: flex;
+    flex-direction: row;
+    justify-self: flex-end;
+    height: 15rem;
+    width: 100%;
+    border-top: 1px solid white;
+}
+
+.container__gameScreen {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.logger__portrait {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    width: 25%;
+}
+
+.portrait__container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+}
+
+.img__container {
+    width: 80%;
+    height: 80%;
+    margin: auto;
+}
+
+.portrait--text {
+    display: block;
+    margin: auto;
+    padding: 0.5rem;
+}
+
+.portraitImg {
+    width: 100%;
+    height: 100%;
+}
+
+.logger__text {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logger__messages--container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    text-justify: auto;
+}
+
+.message__container {
+    display: flex;
+    flex-direction: row;
+}
+
+.message--name {
+    font-weight: 700;
+}

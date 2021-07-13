@@ -1,6 +1,8 @@
 // Se viene la pelea de gladiadores !!!:
 // Existen cuatro tipos de luchadores, los guerreros, los asesinos, los magos y los curanderos. 
 
+import { Battle } from "../game";
+
 // Los guerreros, fuertes tanques  con mucha vida, daño intermedio y poca stamina .
 // Los asesinos !, agiles luchadores con  poca vida  gran daño y mucha stamina.
 // Los sabios magos, de poca vida, gran daño y poca mana.
@@ -17,7 +19,7 @@
 
 // Deben realizar un simulador de peleas ! donde tendrán listas de personajes, cada uno de un tipo
 // y cualidades diferentes, y de manera random estos atacaran o utilizaran habilidades para decidir un ganador ! ."
-interface Warrior{
+export interface Warrior{
     name:string;
     hp:number;
     attack:number;
@@ -36,7 +38,7 @@ interface Warrior{
     recieveAttack(warrior:Warrior):void;
 }
 
-class Warrior implements Warrior {
+export class Warrior implements Warrior {
     name:string;
     hp:number;
     attack:number;
@@ -190,5 +192,8 @@ class Healer extends MagicAttackUser {
     }
 }
 
-const mage = new Mage('Merlin',1000,200,1000,200);
-console.log(mage instanceof Mage);
+const w1 = new Mage('Mambruk',500,120,700,50);
+const w2 = new Fighter('Kar',700,70,700,50);
+
+const battle = new Battle([w1,w2])
+battle.battleLoop();

@@ -1,0 +1,6 @@
+@font-face {
+    font-family: 'Pixel-Art Regular';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Pixel-Art Regular'), url('../fonts/pixelart.woff') format('woff');
+}
