@@ -1,31 +1,39 @@
 import './styles/styles.css';
-import {Logger,Message,Portrait } from './ui/UILogger';
-
+import {UILogger } from './ui/UILogger';
+import { Message } from './ui/Message';
+import { Portrait } from './ui/Portrait';
+import { MessagesPublisher } from './ui/MessagesObserver';
 
 const app = document.querySelector<HTMLDivElement>('#app')!
 
-const container = document.createElement('div');
-const gameScreen = document.createElement('div');
 
+const AppContainer = document.createElement('div');
+const gameScreen = document.createElement('div');
 const textOutput = document.createElement('div');
 
-const logger = new Logger();
-
-const loggerInstance = logger.createLogger(textOutput,[])
-
+const loggerInstance = new UILogger(textOutput);
+loggerInstance.createFullLog();
 const portraitCreator = new Portrait();
-
 const port = portraitCreator.createPortrait('favicon.svg','favicon');
-loggerInstance.createPortraitContainer();
-loggerInstance.createTextLog();
-loggerInstance.appendMessage(new Message({id:1,name:'Mambruk',content:'Attack!'}).getElement())
+
+
+
+const messagesPublisher = new MessagesPublisher();
+messagesPublisher.subscribe(loggerInstance);
+messagesPublisher.addMessage(new Message({id:1,name:'man',content:'test'}));
+messagesPublisher.addMessage(new Message({id:2,name:'man',content:'test'}));
+messagesPublisher.addMessage(new Message({id:3,name:'man',content:'test'}));
+
+loggerInstance.updateLogs();
+
 loggerInstance.setPortrait(port);
 
-container.className = 'container';
+
+AppContainer.className = 'container';
 gameScreen.className = 'container__gameScreen';
-textOutput.className = 'container__TextOutput';
 
 
-container.appendChild(gameScreen);
-container.appendChild(textOutput);
-app.appendChild(container);
+
+AppContainer.appendChild(gameScreen);
+AppContainer.appendChild(textOutput);
+app.appendChild(AppContainer);

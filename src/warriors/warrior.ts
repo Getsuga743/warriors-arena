@@ -1,7 +1,7 @@
 // Se viene la pelea de gladiadores !!!:
 // Existen cuatro tipos de luchadores, los guerreros, los asesinos, los magos y los curanderos. 
 
-import { Battle } from "../game";
+import { Arena } from "../game";
 
 // Los guerreros, fuertes tanques  con mucha vida, daño intermedio y poca stamina .
 // Los asesinos !, agiles luchadores con  poca vida  gran daño y mucha stamina.
@@ -18,7 +18,9 @@ import { Battle } from "../game";
 // A cada ataque se le descontará la defensa del que lo recibe y eso influirá sus puntos de vida.
 
 // Deben realizar un simulador de peleas ! donde tendrán listas de personajes, cada uno de un tipo
-// y cualidades diferentes, y de manera random estos atacaran o utilizaran habilidades para decidir un ganador ! ."
+// y cualidades diferentes, y de manera random estos atacaran o utilizaran habilidades para decidir un ganador ! .";
+
+
 export interface Warrior{
     name:string;
     hp:number;
@@ -140,7 +142,7 @@ class MagicAttackUser extends Warrior {
 
 
 class Fighter extends AttackDamageUser{
-    defenseBonus:number;
+    private defenseBonus:number;
     constructor(name:string,hp:number,attack:number,stamina:number,defenseBonus:number){
         super(name,hp,attack,stamina);
         this.defenseBonus = defenseBonus;
@@ -161,10 +163,10 @@ class Rogue extends AttackDamageUser {
     constructor(name:string,hp:number,attack:number,stamina:number,poisonBonus:number){
         super(name,hp,attack,stamina)
         this.poisonBonus = poisonBonus;
-    }
+    };
     getAttack():number{
         return super.getAttack() + this.poisonBonus;
-    }
+    };
 }
 
 class Mage extends MagicAttackUser {
@@ -194,6 +196,7 @@ class Healer extends MagicAttackUser {
 
 const w1 = new Mage('Mambruk',500,120,700,50);
 const w2 = new Fighter('Kar',700,70,700,50);
-
-const battle = new Battle([w1,w2])
-battle.battleLoop();
+const w3 = new Fighter('CUK',150,555,11,51);
+const w4 = new Rogue('Altair',160,2666,2,25)
+const arena = new Arena([w1,w2,w3,w4])
+// arena.arenaLoop();
