@@ -1,40 +1,44 @@
-interface message {
-    id:number;
-    name:string;
-    content:string;
-}
 
-class UILogger {
+import { MessagesSubscriber } from "./MessagesObserver";
+import { Message } from "./Message";
+import { Portrait } from "./Portrait";
+export class UILogger extends MessagesSubscriber {
     private display:boolean;
     private container:HTMLDivElement;
     private portraitContainer:HTMLDivElement;
     private textContainer:HTMLDivElement;
-    private messages:Message[];
-    constructor(container:HTMLDivElement,
-    messages:Message[] = []){
-            this.container = container;
-            this.messages = messages;
-            this.portraitContainer = document.createElement('div');
-            this.textContainer = document.createElement('div');
-            this.container.appendChild(this.portraitContainer)
-            this.container.appendChild(this.textContainer);
-            this.display = true;
+    constructor(container:HTMLDivElement){
+        super();    
+        this.container = container;
+        this.container.className = 'container__TextOutput';
+        this.portraitContainer = document.createElement('div');
+        this.textContainer =  document.createElement('div');
+        this.display = true;
     }
-    
+    // private isInHtml(m:Message):boolean{
+    // 
+    // }
     createPortraitContainer(){
+        this.portraitContainer = document.createElement('div');
         this.portraitContainer.className="logger__portrait";
+        this.container.appendChild(this.portraitContainer);
     }
     createTextLog(){
         const messagesContainer = document.createElement('ul');
         messagesContainer.className = 'logger__messages--container';
         this.textContainer.className = 'logger__text';
         this.textContainer.appendChild(messagesContainer);
+        this.container.appendChild(this.textContainer)
+    }
+    createFullLog(){
+        this.createPortraitContainer();
+        this.createTextLog();
     }
     getTextLog():HTMLDivElement{
         return this.textContainer;
     }
     setPortrait(portrait:HTMLDivElement){
-        console.log(this.portraitContainer.childNodes)
+
         if(!this.portraitContainer.childNodes){
             this.portraitContainer.appendChild(portrait);
         }else{
@@ -42,20 +46,14 @@ class UILogger {
             this.portraitContainer.appendChild(portrait);
         }
     }
-    appendMessage(messageElement:HTMLLIElement){
-        this.textContainer.childNodes[0].appendChild(messageElement);
+    updateLogs(){
+        this.messages.forEach(el => {
+                return this.appendLog(el.getElement());
+        })
     }
-    selectElement(message:Message){
-        const messageId = message.getId();
-        const index = this.messages.filter((m:Message,index:number) => {
-            if(m.getId() === messageId){
-                return index;
-            }
-            else{
-                return null;
-            }
-        });
-        
+    appendLog(l:HTMLLIElement){
+        const ulContainer = this.container.childNodes[1].childNodes[0];
+        ulContainer.appendChild(l);
     }
     getMessages():Message[]{
         return this.messages;
@@ -72,62 +70,4 @@ class UILogger {
     }
 }
 
-export class Logger {
-    private logger!:UILogger;
-    createLogger(container:HTMLDivElement,messages:Message[]){
-        if(!this.logger){
-            this.logger = new UILogger(container,messages);
-            return this.logger;
-        }else{
-            return this.logger;
-        }
-    }
-    getLogger():UILogger{
-        return this.logger;
-    }
-}
 
-export class Message {
-    private id:number;
-    private name:string;
-    private content:string;
-    private element:HTMLLIElement;
-    constructor(message:message){
-        this.id = message.id;
-        this.name = message.name;
-        this.content = message.content
-        const messageElement = document.createElement('li');
-        const contentElement = document.createElement('div')
-        messageElement.className='message__container';
-        contentElement.className='message--content';
-        contentElement.textContent = this.content;
-        messageElement.appendChild(contentElement);
-        this.element = messageElement;
-    }
-    getElement():HTMLLIElement{
-        return this.element;
-    }
-    getId():number{
-        return this.id;
-    }
-    getName():string{
-        return this.name;
-    }
-    getContent():string{
-        return this.content;
-    }
-}
-
-export class Portrait {
-    createPortrait(src:string,name:string):HTMLDivElement{
-        const container = document.createElement('div');
-        container.innerHTML = `
-        <div class="img__container">
-            <img src="${src} "class="portraitImg" />
-        </div>
-        <p className="portrait--name">${name}</p>        
-        `
-        container.className = 'portrait__container'
-        return container;
-    }
-}
