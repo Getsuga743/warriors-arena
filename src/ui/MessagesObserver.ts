@@ -1,6 +1,15 @@
+import { timer } from "../utils/timer";
 import { Message } from "./Message";
-import {UILogger} from "./UILogger";
-export class MessagesPublisher {
+import {UILogger} from "./components/UILogger";
+interface MessagesPublisherInterface{
+    susbcribers:UILogger[];
+    messages:Message[];
+    subscribe(s:UILogger):void;
+    unsubscribe(s:UILogger):void;
+    notifySubscribers():void;
+    addMessage(m:Message):void;
+}
+export class MessagesPublisher implements MessagesPublisherInterface {
     susbcribers:UILogger[];
     messages:Message[];
     constructor(){
@@ -18,9 +27,8 @@ export class MessagesPublisher {
             s.subscribeMessages(this.messages);
         })
     }
-    addMessage(m:Message){
-        console.log('notifcando..')
-        console.log(this.susbcribers)
+    async addMessage(m:Message){
+        await timer(2000);
         this.messages.push(m);
         this.notifySubscribers();
     }

@@ -1,15 +1,21 @@
-interface message {
+interface MessageData {
     id:number;
     name:string;
     content:string;
 }
 
-export class Message {
+export interface MessageInterface {
+    getElement():HTMLLIElement;
+    getId():number;
+    getName():string;
+    getContent():string
+}
+export class Message implements MessageInterface{
     private id:number;
     private name:string;
     private content:string;
     private element:HTMLLIElement;
-    constructor(message:message){
+    constructor(message:MessageData){
         this.id = message.id;
         this.name = message.name;
         this.content = message.content

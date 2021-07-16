@@ -1,7 +1,7 @@
 // Se viene la pelea de gladiadores !!!:
 // Existen cuatro tipos de luchadores, los guerreros, los asesinos, los magos y los curanderos. 
 
-import { Arena } from "../game";
+import { Arena, Battle } from "../gameStage";
 
 // Los guerreros, fuertes tanques  con mucha vida, daño intermedio y poca stamina .
 // Los asesinos !, agiles luchadores con  poca vida  gran daño y mucha stamina.
@@ -153,9 +153,10 @@ class Fighter extends AttackDamageUser{
     setDefense(defenseBonus:number){
         this.defenseBonus = defenseBonus;
     }
-    getHp():number{
-        return super.getHp() + this.defenseBonus;
+    recieveAttack(w:Warrior){
+        super.setHp(this.getHp()- (w.getAttack() - this.getDefense()));
     }
+
 }
 
 class Rogue extends AttackDamageUser {
@@ -194,9 +195,9 @@ class Healer extends MagicAttackUser {
     }
 }
 
-const w1 = new Mage('Mambruk',500,120,700,50);
-const w2 = new Fighter('Kar',700,70,700,50);
-const w3 = new Fighter('CUK',150,555,11,51);
-const w4 = new Rogue('Altair',160,2666,2,25)
-const arena = new Arena([w1,w2,w3,w4])
-// arena.arenaLoop();
+// const w1 = new Mage('Mambruk',500,120,700,50);
+// const w2 = new Fighter('Kar',700,70,700,50);
+// const w3 = new Fighter('CUK',150,555,11,51);
+// const w4 = new Rogue('Altair',160,2666,2,25)
+// const battle = new Battle([w1,w2])
+// battle.battleLoop()
