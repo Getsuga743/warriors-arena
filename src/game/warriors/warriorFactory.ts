@@ -4,10 +4,8 @@ import { Warrior,Fighter,Rogue,Mage,Healer} from "./warrior";
 export type WIdentifier = 'fighter' | 'rogue' | 'mage' | 'healer';
 
 export class WarriorFactory {
-    
-    create(identifier:WIdentifier,data:{name:string,hp:number,attack:number,energy:number,special?:number}){
+    create(identifier:WIdentifier,data:{name:string,hp:number,attack:number,energy:number,special?:number}):Warrior{
         const {name,hp,attack,energy,special=0} = data;
-        if(identifier && data){
         let warrior:Warrior;
         switch (identifier) {
             case 'fighter':
@@ -25,8 +23,6 @@ export class WarriorFactory {
             default:
                 throw new Error('wrong indentifier');
             }
-            if(warrior) return warrior;
-        }
-        return null;
+        return warrior;
     };
-}
+};

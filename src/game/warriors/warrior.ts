@@ -23,9 +23,11 @@ export interface WarriorProperties{
     name:string;
     hp:number;
     attack:number;
+    energy:number;
+    special:number;
 }
 
-export interface Warrior extends WarriorProperties{
+export interface Warrior{
     getHp():number;
     setHp(hp:number):void;
 
@@ -40,9 +42,9 @@ export interface Warrior extends WarriorProperties{
 }
 
 export class Warrior implements Warrior {
-    name:string;
-    hp:number;
-    attack:number;
+    private name:string;
+    private hp:number;
+    private attack:number;
     
     constructor(name:string,hp:number,attack:number){
         this.hp = hp;
@@ -87,7 +89,7 @@ export class Warrior implements Warrior {
     }
 }
 class AttackDamageUser extends Warrior {
-    stamina:number;
+    private stamina:number;
     constructor(name:string,hp:number,attack:number,stamina:number){
         super(name,hp,attack)
         this.stamina = stamina;
@@ -113,7 +115,7 @@ class AttackDamageUser extends Warrior {
 }
 
 class MagicAttackUser extends Warrior {
-    mana:number;
+    private mana:number;
     constructor(name:string,hp:number,attack:number,mana:number){
         super(name,hp,attack);
         this.mana = mana;
@@ -159,7 +161,7 @@ export class Fighter extends AttackDamageUser{
 }
 
 export class Rogue extends AttackDamageUser {
-    poisonBonus:number;
+    private poisonBonus:number;
     constructor(name:string,hp:number,attack:number,stamina:number,poisonBonus:number){
         super(name,hp,attack,stamina)
         this.poisonBonus = poisonBonus;
@@ -170,7 +172,7 @@ export class Rogue extends AttackDamageUser {
 }
 
 export class Mage extends MagicAttackUser {
-    fireBallDamage:number
+    private fireBallDamage:number
     constructor(name:string,hp:number,attack:number,mana:number,fireBallDamage:number){
         super(name,hp,attack,mana)
         this.fireBallDamage = fireBallDamage;
